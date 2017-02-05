@@ -2,7 +2,9 @@
 [장고 튜토리얼](http://django-document-korean.readthedocs.io/ko/latest/intro/index.html)을 보고 정리한 문서입니다.
 
 ## 프로젝트
-[https://github.com/pinstinct/django_tutorial](https://github.com/pinstinct/django_tutorial/tree/master/mysite)
+튜토리얼을 보면서 진행한 프로젝트입니다.
+프로젝트 소스는 [https://github.com/pinstinct/django_tutorial](https://github.com/pinstinct/django_tutorial)에서 확인할 수 있습니다.
+작업 이력은 [https://github.com/pinstinct/django_tutorial/commits/master](https://github.com/pinstinct/django_tutorial/commits/master)에서 볼 수있습니다.
 
 
 # 설치
