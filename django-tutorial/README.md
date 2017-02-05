@@ -2,7 +2,7 @@
 [장고 튜토리얼](http://django-document-korean.readthedocs.io/ko/latest/intro/index.html)을 보고 정리한 문서입니다.
 
 ## 프로젝트
-[https://github.com/pinstinct/django_tutorial](https://github.com/pinstinct/django_tutorial)
+[https://github.com/pinstinct/django_tutorial](https://github.com/pinstinct/django_tutorial/tree/master/mysite)
 
 
 # 설치
