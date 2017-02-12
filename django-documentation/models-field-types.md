@@ -217,3 +217,102 @@
   - 보편적으로 유일한 식별자를 저장하기위한 필드
   - Python의 UUID 클래스를 사용합니다. 
   - UUID는 primary_key를 위한 **AutoField** 대신 사용할 수있는 좋은 방법입니다.
+
+
+
+### Relationship fields
+
+관계를 표현하는 필드 세트를 정의합니다.
+
+#### ForeignKey 
+
+`class ForeignKey(othermodel, on_delete, **options)`
+
+-  다대일 관계입니다. 관련된 모델의 클래스를 인자로 필요합니다.
+- 재귀 관계(자체와 다대일 관계가있는 객체)를 만들려면 `models.ForeignKey( 'self', on_delete = models.CASCADE)`를 사용합니다.
+- 아직 정의되지 않은 모델에서 관계를 작성해야하는 경우, 모델 객체가 아닌 모델 이름을 사용할 수 있습니다.
+- 다른 응용 프로그램(app)에 정의 된 모델을 참조하려면 전체 응용 프로그램 레이블로 모델을 명시적으로 지정할 수 있습니다.
+
+##### Database Representation
+
+Django는 **"_id"**를 필드 이름에 추가하여 데이터베이스 열 이름을 만듭니다. 
+
+##### Arguments
+
+- `ForeignKey.on_delete` : ForeignKey가 참조하는 객체가 삭제되면, Django는 on_delete 지정한 SQL 제약 조건의 동작을 에뮬레이션합니다. 
+  - CASCADE : 계단식 삭제. Django는 ON DELETE CASCADE SQL 제약 조건의 동작을 에뮬레이션하고 ForeignKey가 포함된 객체도 삭제합니다.
+  - PROTECT : **django.db.IntegrityError**의 하위 클래스인 **ProtectedError**를 발생시켜 참조된 객체의 삭제를 방지합니다.
+  - SET_NULL : ForeignKey null을 설정합니다. (`null = True` 경우에만 가능)
+  - SET_DEFAULT : ForeignKey의 기본값을 설정합니다.
+  - SET() : ForeignKey를 **SET()**에 전달 된 값으로 설정하거나, 호출 가능 객체가 호출 한 결과를 설정합니다.
+  - DO_NOTHING : 아무런 동작도 하지 않습니다.
+- `ForeignKey.limit_choices_to` : ModelForm 또는 admin을 사용하여 필드를 렌더링 할 때, 필드에 사용할 수있는 선택 항목에 대한 제한을 설정합니다(기본적으로 쿼리 세트의 모든 객체를 선택할 수 있음). 
+- `ForeignKey.related_name` : 관련 객체에서 이 객체에 대한 관계에 사용할 이름입니다. 또한 **related_query_name** (대상 모델의 역 필터 이름에 사용할 이름)의 기본값입니다. Django가 역방향 관계를 생성하지 않기를 원한다면, **related_name**을 '**+**'로 설정합니다.
+- `ForeignKey.related_query_name` : target 모델의 역방향 필터에 사용할 이름입니다. 설정하지 않을 경우, **default_related_name**(`<ModelName>_set`) 또는 **related_name** 값이 기본 값입니다.
+- `ForeignKey.to_field` : 관계가 있는 관련 객체의 필드입니다. 기본적으로 관련 객체의 기본 키를 사용합니다. 다른 필드를 참조할 경우, 해당 필드는 `unique=True`설정을 해야 합니다.
+- `ForeignKey.db_constraint` : 외래 키에 대해 데이터베이스에 제약 조건을 만들지 여부를 제어합니다. 기본값은 **True**입니다.
+- `ForeignKey.swappable` : ForeignKey가 스왑 가능 모델을 가리키는 경우, 마이그레이션 프레임 워크의 반응을 제어합니다. 
+
+#### ManyToManyField
+
+`class ManyToManyField(othermodel, **options)`
+
+- 다대다 관계입니다. 관련된 모델의 클래스를 인자로 필요합니다.
+- 재귀 및 지연 관계를 포함하여 **ForeignKey**와 똑같이 작동합니다.
+
+##### Database Representation
+
+장고는 다대다 관계를 표현하기 위해 중개자 조인 테이블을 생성합니다. 
+
+##### Arguments
+
+- `ManyToManyField.related_name` : ForeignKey.related_name과 동일합니다.
+- `ManyToManyField.related_query_name` : ForeignKey.related_query_name과 동일합니다.
+- `ManyToManyField.limit_choices_to` : ForeignKey.limit_choices_to와 동일합니다. 
+- `ManyToManyField.symmetrical` : 재귀 ManyToManyFields의 정의에만 사용합니다. ManyToManyField는 대칭이라고 가정합니다. 즉, 내가 당신의 친구라면, 당신도 내 친구입니다. 재귀 다대다 관계에서 대칭을 원하지 않으면 `symmetrical = False` 설정을 합니다.
+- `ManyToManyField.through` : Django는 다대다 관계를 관리하기위한 테이블을 자동으로 생성합니다. 그러나 중개자 테이블을 수동으로 지정하려면 **through** 옵션을 사용하여 사용할 중간 테이블을 나타내는 모델을 지정할 수 있습니다. 이 옵션의 가장 일반적인 용도는 **추가 데이터를 다 대다 관계와 연관**시키려는 경우입니다.
+- `ManyToManyField.through_fields` : 사용자 중간자 모델이 지정된 경우에만 사용합니다. 다대다 관계에 참여하는 모델 중 하나(또는 두 모델 모두)의 중간자 모델에 둘 이상의 외래 키가있는 경우에는 **through_fields**를 지정해야합니다. through_fields는 2-tuple **( 'field1', 'field2')**을 허용합니다. 재귀 다대다 관계일 때는 `symmetrical=False `로 정의되어 있어야 한다.
+- `ManyToManyField.db_table` : 다대다 데이터를 저장하기 위해 작성할 테이블의 이름
+- `ManyToManyField.db_constraint` : 중개 테이블의 외래 키에 대해 데이터베이스에 제약 조건을 만들어야하는지 여부를 제어합니다. 기본값은 True입니다.
+- `ManyToManyField.swappable` :   ManyToManyField가 스왑 가능 모델을 가리키는 경우, 마이그레이션 프레임 워크의 반응을 제어합니다. 
+
+#### OneToOneField
+
+`class OneToOneField(othermodel, on_delete, parent_link=False, **options)`
+
+- 일대일 관계입니다. 
+- `unique=True`로 설정된 **ForeignKey**와 비슷합니다. 하지만 "역 방향" 관계는 하나의 객체를 직접 반환합니다.
+- 재귀 및 지연 관계를 포함하여 **ForeignKey**와 똑같이 작동합니다.
+- 어떤 식으로든 다른 모델을 "확장"하려는 모델의 기본키로 가장 유용합니다.
+
+OneToOneField는 ForeignKey에서 허용하는 모든 인자와 하나의 추가 인자가 있습니다.
+
+- `OneToOneField.parent_link`
+
+
+
+## Field attribute reference
+
+모든 **Field** 인스턴스에는 동작을 관할 수있는 여러 속성이 있습니다. 필드의 기능에 따라 코드를 작성할 때, **isinstance** 체크 대신 속성을 이용하세요.
+
+### Attributes for fields
+
+- `Field.auto_created` : 필드가 자동으로 만들어 졌는지 여부를 나타내는 Boolean 플래그
+
+- `Field.concrete` : 필드에 연결된 데이터베이스 열이 있는지 여부를 나타내는 Boolean 플래그
+
+- `Field.hidden` : 필드가 숨겨진 필드가 아닌 다른 기능을 백업하는 데 사용되는지 여부를 나타내는 Boolean 플래그
+
+- `Field.is_relation` : 필드가 하나 이상의 다른 모델(예 : ForeignKey, ManyToManyField, OneToOneField)에 대한 참조가 포함되어 있는지 나타내는 Boolean 플래그입니다.
+
+  ​
+
+### Attributes for fields with relations
+
+카디널리티 및 관계의 기타 세부 사항을 쿼리하는 데 사용합니다. 이 속성은 모든 필드에 있습니다. 그러나 `Field.is_relation = True`인 경우, Boolean 값만 있습니다.
+
+- `Field.many_to_many` : 필드가 다대다 관계를 갖는 경우 **True**인 부울 플래그
+- `Field.many_to_one` : 필드에 다대일 관계가있는 경우 Boolean 플래그 (예 : ForeignKey)
+- `Field.one_to_many` : 필드에 일대다 관계가있는 경우 Boolean 플래그 (예 : GenericRelation 또는 ForeignKey의 역) 
+- `Field.one_to_one` : 필드가 OneToOneField와 같이 일대일 관계를 갖는 경우  Boolean 플래그  
+- `Field.related_model` : 필드가 관련된 모델을 가리킵니다. 
