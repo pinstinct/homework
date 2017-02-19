@@ -8,6 +8,16 @@ Django (*/ˈdʒæŋɡoʊ/ jang-goh/쟁고/장고*)는 파이썬으로 만들어�
 
 **웹 서버에 요청이 오면 장고로 전달**됩니다. 그러면 장고는 실제로 어떤 요청이 들어왔는지 확인합니다. 첫 번째로 **웹 페이지의 주소를 가져와 무엇을 할지 확인**합니다. 이 것이 바로 장고의 **urlresolver**가 하는 역할이에요. (웹 사이트 주소는 URL - Uniform Resource Locator을 말합니다. 그래서 *urlresolver*가 이해하게 됩니다.) **패턴 목록을 가져와 URL과 맞는지 하나 씩 대조**해보는 것은 그리 똑똑한 방법이 아니죠. 그러나 장고는 위에서 부터 아래로 그 패턴을 확인해봅니다. 만약 **일치하는 게 있다고 하면, 장고는 그 요청을 관련된 함수(*view*)** 에 넘겨줍니다.
 
+## 프로젝트
+튜토리얼을 보면서 진행한 프로젝트입니다.
+
+
+프로젝트 소스는 [https://github.com/pinstinct/django-girls-tutorial-hw](https://github.com/pinstinct/django-girls-tutorial-hw)에서 확인할 수 있습니다.
+
+
+작업 이력은 [https://github.com/pinstinct/django-girls-tutorial-hw/commits/master](https://github.com/pinstinct/django-girls-tutorial-hw/commits/master)에서 볼 수있습니다.
+
+
 # 프로젝트 생성, 관리
 
 ```shell
@@ -43,29 +53,3 @@ $ tree-python
 │   └── manage.py
 └── requirements.txt
 ```
-
-
-
-# 버전관리
-
-```shell
-$ git init
-$ vi .gitignore
-$ pip freeze > requirements.txt
-
-# pycharm 실행
-# Project Interpreter 설정
-$ py .
-
-$ git status
-$ git add -A
-$ git commit -m "Project init"
-```
-
-
-
-> 프로젝트 확인: https://github.com/pinstinct/django-girls-tutorial-hw
->
-> 
->
-> 히스토리 확인: https://github.com/pinstinct/django-girls-tutorial-hw/commits/master
