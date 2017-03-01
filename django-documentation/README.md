@@ -23,10 +23,10 @@
 ## Template
 
 - The basics
-  - 2/14 - [Overview](https://docs.djangoproject.com/en/1.10/topics/templates/)
+  - 2/14 - [Overview](https://github.com/pinstinct/homework/blob/master/django-documentation/template-basics-overview.md)
 - For designers
-  - 2/14 - [Language overview](https://docs.djangoproject.com/en/1.10/ref/templates/language/)
-  - 2/14 - [Built-in tags and filters](https://docs.djangoproject.com/en/1.10/ref/templates/builtins/)
+  - 2/14 - [Language overview](https://github.com/pinstinct/homework/blob/master/django-documentation/template-designers-language-overview.md)
+  - 2/14 - [Built-in tags and filters](https://github.com/pinstinct/homework/blob/master/django-documentation/template-designers-built-in-tags-and-filters.md)
 
 ## Forms
 
