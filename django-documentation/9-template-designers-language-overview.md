@@ -14,13 +14,13 @@
 - 필터는 "연결"될 수 있다. 하나의 필터가 적용된 결과로 다음 필터를 진행한다.
 - 어떤 필터들은 인자를 취한다.
 
-```
+```html
 {{ name|lower }}
 
-# linebreaks: \n을 <p> 태그로 변경
+<!-- linebreaks: \n을 <p> 태그로 변경 -->
 {{ text|escape|linebreaks }}
 
-# truncatewords: 인자를 취함, 30단어만 보여줌
+<!-- truncatewords: 인자를 취함, 30단어만 보여줌 -->>
 {{ bio|truncatewords:30 }}
 
 {{ list|join:", " }}
