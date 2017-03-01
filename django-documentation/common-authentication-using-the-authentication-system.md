@@ -87,3 +87,8 @@ from django.contrib.auth.decorators import login_required
 def my_view(request):
 ```
 
+
+### Built-in forms
+인증 시스템은 `django.contrib.auth.forms`에 있는 기본 폼을 제공한다.
+
+- UserCreationForm : 새로운 사용자 생성을 위한 모델 폼
