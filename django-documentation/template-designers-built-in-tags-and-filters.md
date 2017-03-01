@@ -26,3 +26,12 @@ block안에서 자동 escape 적용되는지 여부를 결정한다.
 {% url 'myapp:view-name' %}
 ```
 역참조하는 URL이 없으면 **NoReverseMatch** 예외가 발생한다.
+
+## Built-in filter reference
+
+### Date
+주어진 포맷에 따라 날짜 형식을 지정한다.
+
+```html{%raw%}
+{{ value|date:"D d M Y" }}
+```
