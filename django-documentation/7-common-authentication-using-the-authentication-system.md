@@ -36,3 +36,33 @@ user.set_password('123')
 
 ## Authentication in Web requests
 Django는 **request 객체를 이용해** 세션과 미들웨어를 사용하여 인증 시스템을 연결합니다.
+
+### How to log a user in
+현재 세션에 연결할 인증 된 사용자가있는 경우 `login()` 함수를 사용하여이 작업을 수행합니다.
+
+```python
+from django.contrib.auth import authenticate, login
+
+def my_view(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(username=username, password=password)
+    if user is not None:
+        login(request, user)
+        # Redirect to a success page.
+        ...
+    else:
+        # Return an 'invalid login' error message.
+        ...
+```
+
+### How to log a user out
+`django.contrib.auth.login()`을 통해 로그인 한 사용자를 로그 아웃하려면 `django.contrib.auth.logout()`을 사용한다. **HttpRequest** 객체를 사용하며 반환 값이 없다.
+
+```python
+from django.contrib.auth import logout
+
+def logout_view(request):
+    logout(request)
+    # Redirect to a success page.
+```

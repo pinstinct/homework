@@ -49,6 +49,35 @@ def upload_file(request):
 
 - 여러개의 파일을 업로드할 수 있다. 결과가 리스트로 반환되므로, 반복문을 통해 꺼내 쓰면된다.
 
+### Uploading multiple files
+필드 위젯 속성에 `multiple`을 설정한다.
+
+```python
+# post/forms.py
+class PostForm(forms.Form):
+    content = forms.CharField(required=False)
+    photo = forms.ImageField(
+        widget=forms.ClearableFileInput(
+            attrs={
+                'multiple': True
+            }
+        )
+    )
+```
+
+```python
+# post/views/post.py
+def post_add(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            files = request.FILES.getlist('photo')
+
+            for file in files:
+                create_post_comment(file, comment_content)
+
+            return redirect('post:list')
+```
 
 
 ## Upload Handlers
