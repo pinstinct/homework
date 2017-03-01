@@ -1,6 +1,40 @@
 # [Authentication: Customizing authentication](https://docs.djangoproject.com/en/1.10/topics/auth/customizing/)
 
 
+## Other authentication sources
+username, password 방식이 아닌 다른 방식으로 사용할 때, 확장하거나 대체할 수 있는 `Authentication backends` 제공한다.
+
+### Specifying authentication backends
+
+`django.contrib.auth.authenticate()`가 호출될 때
+- 인증 시도
+  - 먼저 기본(유전네임과 패스워드)사항을 확인
+  - 그 다음 확장한게 있으면 그것까지 시도
+- 인증에 실패하면 로그인 실패
+
+기본적으로 `AUTHENTICATION_BACKENDS`는 다음과 같이 설정되있다.
+
+```python
+['django.contrib.auth.backends.ModelBackend']
+```
+순서가 중요하므로 처리하고싶은 순서대로 해둬라.
+
+### Writing an authentication backend
+인증 백엔드는 `get_user(user_id)`와 `authenticate(** credentials)`의 두 가지 필수 메소드가 있다.
+
+- `get_user` : user_id를 취하고 사용자 객체를 반환
+- `authenticate` : 자격 증명(credentials)을 키워드 인자로 사용
+
+```python
+class MyBackend(object):
+    def authenticate(self, token=None):
+        # Check the token and return a user.
+        # 알아서 처리 후
+        # 유효하면 반드시 사용자 객체를 반환하고
+        # 아니면 None을 반환
+```
+`authenticate()`는 자격 증명이 유효한지 확인한 다음 자격 증명이 유효하면 해당 자격 증명과 일치하는 사용자 객체를 반환해야합니다. 유효하지 않으면 없음을 반환해야합니다.
+
 ## Extending the existing `User` model
 기본 사용자 모델을 확장하는데 두 가지 방법이 있다.
 
