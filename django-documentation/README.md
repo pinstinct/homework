@@ -43,7 +43,7 @@
   - 2/13 - [Using the authentication system](https://github.com/pinstinct/homework/blob/master/django-documentation/common-authentication-using-the-authentication-system.md)
   - 2/17 - [Password management](https://github.com/pinstinct/homework/blob/master/django-documentation/common-authentication-password-management-in-django.md)
   - 2/14 - [Customizing authentication](https://github.com/pinstinct/homework/blob/master/django-documentation/common-authentication-customizing-authentication.md)
-- 2/23 - [Pagination]()
+- 2/23 - [Pagination](https://github.com/pinstinct/homework/blob/master/django-documentation/common-pagination.md)
 
 # [Topic guides](https://docs.djangoproject.com/en/1.10/topics/)
 
