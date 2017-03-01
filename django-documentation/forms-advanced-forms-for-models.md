@@ -101,5 +101,3 @@ class SignupForm(forms.Form):
 # Now, save the many-to-many data for the form.
 >>> f.save_m2m()
 ```
-
-Model fromsets은 잘 안쓴다. formsets을 쓸 정도가 되면 fontend에서 처리한다.
