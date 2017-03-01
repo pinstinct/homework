@@ -66,3 +66,24 @@ def logout_view(request):
     logout(request)
     # Redirect to a success page.
 ```
+
+### Limiting access to logged-in users
+페이지에 대한 액세스를 제한하는 간단하고 원시적인 방법은 `request.user.is_authenticated`를 사용하는 것이다.
+
+```python
+def index(request):
+    if request.user.is_authenticated:
+        return redirect('post:list')
+    else:
+        return redirect('member:signup')
+```
+
+#### The login_required decorator
+
+```python
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def my_view(request):
+```
+
