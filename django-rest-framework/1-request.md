@@ -15,6 +15,8 @@ REST 프레임워크의 `Request` 클래스는 표준 `HttpRequest`를 확장하
 
 **주의** : 기본적으로 REST 프레임워크의 `APIView` 클래스 또는 `@api_view` 데코레이터는 오류를 catch하고 `400 Bad Request` 응답을 반환합니다.
 
+## Content negotiation
+request는 콘텐츠 협상 단계(negotiation stage)의 결과를 결정할 수있는 몇 가지 속성을 제공합니다. 이를 통해 다양한 미디어 유형에 대해 다른 직렬화 체계를 선택하는 것과 같은 동작을 구현할 수 있습니다.
 
 ## Authentication
 - API의 다른 부분에 대해 서로 다른 인증 정책을 사용
