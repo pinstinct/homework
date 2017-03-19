@@ -162,7 +162,7 @@ class ProductFilter(django_filters.rest_framework.FilterSet):
         fields = [
         'category',
         'in_stock',
-        'manufacturer__name',
+        # 'manufacturer__name',
         'manufacturer',
         ]
 ```
