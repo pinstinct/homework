@@ -203,5 +203,3 @@ class UserListView(generics.ListAPIView):
     ordering = ('username',)
 ```
 이렇게하면 사용자가 암호 해시 필드 또는 기타 중요한 데이터에 대해 요청할 수있게하는 등 예기치 않은 데이터 유출을 방지 할 수 있습니다.
-
-### DjangoObjectPermissionsFilter
